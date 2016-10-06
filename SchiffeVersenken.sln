@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchiffeVersenken_Logic", "SchiffeVersenken_Logic\SchiffeVersenken_Logic.csproj", "{427D6A66-D068-4C71-A8F7-61DB62AD6B2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchiffeVersenken_Data", "SchiffeVersenken_Data\SchiffeVersenken_Data.csproj", "{5F69B85D-DEFB-4149-A953-3C7F476055B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchiffeVersenken_Console", "SchiffeVersenken_Console\SchiffeVersenken_Console.csproj", "{967C889E-F5B0-4B71-89A9-8B17B474BC28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchiffeVersenken_GUI", "SchiffeVersenken_GUI\SchiffeVersenken_GUI.csproj", "{47A276C9-E25A-49A5-9FB6-76BA9940F2D3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{427D6A66-D068-4C71-A8F7-61DB62AD6B2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{427D6A66-D068-4C71-A8F7-61DB62AD6B2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{427D6A66-D068-4C71-A8F7-61DB62AD6B2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{427D6A66-D068-4C71-A8F7-61DB62AD6B2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F69B85D-DEFB-4149-A953-3C7F476055B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F69B85D-DEFB-4149-A953-3C7F476055B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F69B85D-DEFB-4149-A953-3C7F476055B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F69B85D-DEFB-4149-A953-3C7F476055B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{967C889E-F5B0-4B71-89A9-8B17B474BC28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{967C889E-F5B0-4B71-89A9-8B17B474BC28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{967C889E-F5B0-4B71-89A9-8B17B474BC28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{967C889E-F5B0-4B71-89A9-8B17B474BC28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47A276C9-E25A-49A5-9FB6-76BA9940F2D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47A276C9-E25A-49A5-9FB6-76BA9940F2D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47A276C9-E25A-49A5-9FB6-76BA9940F2D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47A276C9-E25A-49A5-9FB6-76BA9940F2D3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
