@@ -40,7 +40,24 @@ namespace SchiffeVersenken.Data
         }
 
         public void AddShip(Ship oShip) {
-           //TODO: Implement
+            //TODO: Implement
+
+            GenerateBlockMap(oShip);
+            Position oStart = oShip.StartPos;
+            Position oEnd = oShip.EndPos;
+            if (oShip.Dir == Direction.LEFT || oShip.Dir == Direction.UP)
+            {
+                oStart = oShip.EndPos;
+                oEnd = oShip.StartPos;
+            }
+            for (int y = oStart.Y; y <= oEnd.Y; y++)
+            {
+                for (int x = oStart.X; x <= oEnd.X; x++)
+                {
+                    _Map[y, x] = 1;
+                }
+            }
+            
         }
         
         private bool IsInbounds(Position oPos)
@@ -71,7 +88,7 @@ namespace SchiffeVersenken.Data
 
             for(int y = oStart.Y; y <= oEnd.Y; y++)
             {
-                for(int x = oStart.X; x < oEnd.X; x++)
+                for(int x = oStart.X; x <= oEnd.X; x++)
                 {
                     _BlockMap[y, x] = 1;
                 }
@@ -154,6 +171,20 @@ namespace SchiffeVersenken.Data
             int y = oPos.Y == Height - 1 ? oPos.Y : oPos.Y + 1;
             return new Position(x, y);
         }
-        
+
+        public List<List<int>> ToList()
+        {
+            List<List<int>> oMapList = new List<List<int>>();
+            for (int y = 0; y < Height; y++)
+            {
+                List<int> oInnerList = new List<int>();
+                for (int x = 0; x < Length; x++)
+                {
+                    oInnerList.Add(_Map[y, x]);
+                }
+                oMapList.Add(oInnerList);
+            }
+            return oMapList;
+        }
     }
 }

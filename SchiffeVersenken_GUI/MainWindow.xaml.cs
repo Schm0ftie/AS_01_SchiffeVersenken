@@ -22,12 +22,21 @@ namespace SchiffeVersenken_GUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private LogicHandler _Game;
+        
         public MainWindow()
         {
-            InitializeComponent();
+            _Game = new LogicHandler();
+            
 
-            LogicHandler game = new LogicHandler();
-            dataGrid.DataContext = game.GetMap();
+            InitializeComponent();
+            Map.ItemsSource = _Game.GetMap().ToList();
+            
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

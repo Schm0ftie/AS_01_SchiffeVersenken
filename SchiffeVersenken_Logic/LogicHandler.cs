@@ -30,6 +30,7 @@ namespace SchiffeVersenken.Logic
             return _Map;
         }
 
+        
         private void PopulateMap(GameMap oMap) {
             
             List<Ship> oShipList = GenerateShips();
@@ -39,6 +40,7 @@ namespace SchiffeVersenken.Logic
                 while (!_Map.IsShipPlaceable(oShip))
                 {
                     oShip.StartPos = GetRandomLocation();
+                    oShip.Dir = (Direction)_Random.Next(4);
                 }
                 _Map.AddShip(oShip);
             }
@@ -69,6 +71,7 @@ namespace SchiffeVersenken.Logic
             return new Position(x, y);
         }
 
+        
        
     }
 }

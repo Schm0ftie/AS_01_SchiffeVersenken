@@ -6,9 +6,25 @@
         xmlns:local="clr-namespace:SchiffeVersenken_GUI"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <DataGrid x:Name="dataGrid" Margin="10,75,9.667,9.667"/>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="395,15,0,0" VerticalAlignment="Top" Width="75"/>
+    <Window.Resources>
+        <DataTemplate x:Key="Template_Inner">
+            <Button Content="{Binding}" Height="30" Width="30" Margin="2,2,2,2" Background="Green" />
+        </DataTemplate>
 
+        <DataTemplate x:Key="Template_Outer">
+            <ItemsControl ItemsSource="{Binding}" ItemTemplate="{DynamicResource Template_Inner}" >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+            </ItemsControl>
+        </DataTemplate>
+        
+    </Window.Resources>
+    
+    <Grid>
+        <ItemsControl x:Name="Map" ItemTemplate="{DynamicResource Template_Outer}" />
     </Grid>
 </Window>
