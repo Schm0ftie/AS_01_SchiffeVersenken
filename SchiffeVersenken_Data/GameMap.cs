@@ -10,15 +10,16 @@ namespace SchiffeVersenken.Data
 
     public class GameMap
     {
-        private Random _Rand;
+        private Random _Rand = new Random();
         private int[,] _Map;
-        
+        private int[,] _BlockMap;
 
-        public int this[int x, int y]
+
+        public int this[int y, int x]
         {
             get
             {
-                return _Map[x, y];
+                return _Map[y, x];
             }
         }
 
@@ -32,107 +33,127 @@ namespace SchiffeVersenken.Data
             get { return _Map.GetLength(1); }
         }
 
-        public GameMap()
-        {
-            _Rand = new Random();
-            _Map = new int[10,20];
-        }
 
         public GameMap(int height, int width){
             _Map = new int[height, width];
+            _BlockMap = new int[height, width];
         }
 
         public void AddShip(Ship oShip) {
-            int x = oShip.StartPos.X;
-            int y = oShip.StartPos.Y;
-            _Map[y, x] = 3;
-
-            //TODO: Rest des Schiffes einzeichnen
+           //TODO: Implement
         }
         
         private bool IsInbounds(Position oPos)
         {
-            if (oPos.X < 0 || oPos.X >= this.Length || oPos.Y < 0 || oPos.Y >= this.Height)
+            return IsInbounds(oPos.X, oPos.Y);
+        }
+
+        private bool IsInbounds(int x, int y)
+        {
+            if (x < 0 || x >= this.Length || y < 0 || y >= this.Height)
                 return false;
             return true;
         }
 
-        public bool IsEmpty(Position oPos)
+        private void GenerateBlockMap(Ship oShip)
         {
-            return IsInbounds(oPos) && _Map[oPos.Y, oPos.X] == (int)Field.NONE ;//&& !HasNeighbour(oPos, null);
-        }
-
-        public bool HasNeighbour(Position oPos, Position oOrigin)
-        {
-            Position oSource = (oOrigin == null) ? new Position(-100, -100) : oOrigin;
-
-            Position oPosRight = new Position(oPos.X + 1, oPos.Y);
-            Position oPosRightDown = new Position(oPos.X + 1, oPos.Y + 1);
-            Position oPosDown = new Position(oPos.X, oPos.Y + 1);
-            Position oPosDownLeft = new Position(oPos.X - 1, oPos.Y + 1);
-            Position oPosLeft = new Position(oPos.X - 1, oPos.Y);
-            Position oPosUpLeft = new Position(oPos.X - 1, oPos.Y - 1);
-            Position oPosUp = new Position(oPos.X, oPos.Y - 1);
-            Position oPosUpRight = new Position(oPos.X + 1, oPos.Y - 1);
-
-            List<Position> oPosList = new List<Position>() { oPosRight, oPosRightDown, oPosDown, oPosDownLeft, oPosLeft, oPosUpLeft, oPosUp, oPosUpRight };
-
-            foreach (Position oPosItem in oPosList)
+            Position oStart, oEnd;
+            if(oShip.Dir == Direction.LEFT || oShip.Dir == Direction.UP)
             {
-                if (oPosItem != oOrigin && !IsEmpty(oPosItem))
-                    return true;
+                oStart = GetBlockStart(oShip.EndPos);
+                oEnd = GetBlockEnd(oShip.StartPos);
+            }
+            else
+            {
+                oStart = GetBlockStart(oShip.StartPos);
+                oEnd = GetBlockEnd(oShip.EndPos);
             }
 
-            return false;
+            for(int y = oStart.Y; y <= oEnd.Y; y++)
+            {
+                for(int x = oStart.X; x < oEnd.X; x++)
+                {
+                    _BlockMap[y, x] = 1;
+                }
+            }
+
         }
+
+        public bool IsEmpty(Position oPos)
+        {
+            return _BlockMap[oPos.Y, oPos.X] == (int)Field.NONE ;
+        }
+
 
         public bool IsShipPlaceable(Ship oShip)
         {
             if (!IsEmpty(oShip.StartPos))
                 return false;
-            if (HasNeighbour(oShip.StartPos, null))
-                return false;
-            //
-            oShip.Dirs = GetAvailableDirections(oShip);
-            if (oShip.Dirs.Count == 0)
+            if (!CheckDirection(oShip))
                 return false;
             return true;
         }
 
-        private List<Direction> GetAvailableDirections(Ship oShip)
-        {
-            List<Direction> oDirList = new List<Direction>();
-
-            if (CheckDirection(oShip, Direction.RIGHT))
-                oDirList.Add(Direction.RIGHT);
-            if (CheckDirection(oShip, Direction.DOWN))
-                oDirList.Add(Direction.DOWN);
-            if (CheckDirection(oShip, Direction.LEFT))
-                oDirList.Add(Direction.LEFT);
-            if (CheckDirection(oShip, Direction.UP))
-                oDirList.Add(Direction.UP);
-
-            return oDirList;
-        }
-
-        private bool CheckDirection(Ship oShip, Direction oDir)
+        private bool CheckDirection(Ship oShip)
         {
             Position oTempPos = oShip.StartPos;
-            Position oLastPos;
 
             for (int i = 0; i < oShip.Size; i++)
             {
-                oLastPos = oTempPos;
-                oTempPos = oTempPos.Add(Position.ConvertDirection(oDir));
-                _Map[oTempPos.Y, oTempPos.X] = 1;
-                if (HasNeighbour(oTempPos, oLastPos))
+                oTempPos = oTempPos.Add(Position.ConvertDirection(oShip.Dir));
+                if (!(IsInbounds(oTempPos) && IsEmpty(oTempPos)))
                 {
-                    _Map[oTempPos.Y, oTempPos.X] = 8;
                     return false;
                 }
             }
-            oShip.Dirs.Add(oDir);
             return true;
         }
+
+        #region debugPrints
+        public void Print()
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < this.Length; i++)
+            {
+                for (int j = 0; j < this.Height; j++)
+                {
+                    sb.Append("[ " + _Map[i, j] + " ]");
+                }
+                sb.AppendLine();
+            }
+            Console.WriteLine(sb.ToString());
+        }
+
+        public void PrintBlockMap()
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < this.Length; i++)
+            {
+                for (int j = 0; j < this.Height; j++)
+                {
+                    sb.Append("[ " + _BlockMap[i, j] + " ]");
+                }
+                sb.AppendLine();
+            }
+            Console.WriteLine(sb.ToString());
+        }
+
+        #endregion
+
+
+        private Position GetBlockStart(Position oPos)
+        {
+            int x = oPos.X == 0 ? oPos.X : oPos.X - 1;
+            int y = oPos.Y == 0 ? oPos.Y : oPos.Y - 1;
+            return new Position(x, y);
+        }
+
+        private Position GetBlockEnd(Position oPos)
+        {
+            int x = oPos.X == Length - 1 ? oPos.X : oPos.X + 1;
+            int y = oPos.Y == Height - 1 ? oPos.Y : oPos.Y + 1;
+            return new Position(x, y);
+        }
+        
     }
 }

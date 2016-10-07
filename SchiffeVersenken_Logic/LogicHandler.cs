@@ -17,10 +17,11 @@ namespace SchiffeVersenken.Logic
 
         public LogicHandler()
         {
-            _Map = new GameMap(10, 20);
+            _Map = new GameMap(10, 10);
             _Random = new Random();
             PopulateMap(_Map);
-            Print();
+            _Map.Print();
+            _Map.PrintBlockMap();
             
         }
 
@@ -68,18 +69,6 @@ namespace SchiffeVersenken.Logic
             return new Position(x, y);
         }
 
-        private void Print()
-        {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < _Map.Length; i++)
-            {
-                for(int j = 0; j < _Map.Height; j++)
-                {
-                    sb.Append("[ " + _Map[i, j] + " ]");
-                }
-                sb.AppendLine();
-            }
-            Console.WriteLine(sb.ToString());
-        }
+       
     }
 }

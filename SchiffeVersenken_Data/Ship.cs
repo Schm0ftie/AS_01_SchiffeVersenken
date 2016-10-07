@@ -13,14 +13,12 @@ namespace SchiffeVersenken.Data
     {
 
         private Position _StartPos;
-        private List<Direction> _Directions;
         private Size _Size;
         private Direction _Dir;
 
         public Ship(Size size)
         {
             _Size = size;
-            _Directions = new List<Direction>();
         }
 
         
@@ -34,13 +32,6 @@ namespace SchiffeVersenken.Data
             set { _StartPos = value; }
         }
 
-        public List<Direction> Dirs
-        {
-            get { return _Directions; }
-            set {
-                _Directions = value;
-            }
-        }
 
         public int Size
         {
@@ -54,6 +45,25 @@ namespace SchiffeVersenken.Data
         {
             get { return _Dir; }
             set { _Dir = value; }
+        }
+        
+        public Position EndPos
+        {
+            get
+            {
+                switch (_Dir)
+                {
+                    case Direction.RIGHT:
+                        return new Position(StartPos.X + Size - 1, StartPos.Y);
+                    case Direction.DOWN:
+                        return new Position(StartPos.X, StartPos.Y + Size - 1);
+                    case Direction.LEFT:
+                        return new Position(StartPos.X - Size + 1, StartPos.Y);
+                    case Direction.UP:
+                        return new Position(StartPos.X, StartPos.Y - Size + 1);
+                }
+                return new Position(0, 0);
+            }
         }
     }
 }
