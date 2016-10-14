@@ -21,7 +21,24 @@
 
             </ItemsControl>
         </DataTemplate>
-        
+
+        <Style TargetType="{x:Type Button}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Status}" Value="2">
+                    <Setter Property="Button.Background" Value="Gray" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Status}" Value="1">
+                    <Setter Property="Button.Background" Value="Red" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Status}" Value="0">
+                    <Setter Property="Button.Background" Value="Green" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Status}" Value="-1">
+                    <Setter Property="Button.Background" Value="Yellow" />
+                </DataTrigger>
+                
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     
     <Grid>

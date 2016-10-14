@@ -10,7 +10,7 @@ namespace SchiffeVersenken.Data
 
     public class GameMap
     {
-        private Random _Rand = new Random();
+        //private Random _Rand;
         private int[,] _Map;
         private int[,] _BlockMap;
 
@@ -37,11 +37,11 @@ namespace SchiffeVersenken.Data
         public GameMap(int height, int width){
             _Map = new int[height, width];
             _BlockMap = new int[height, width];
+            //_Rand = new Random();
+
         }
 
         public void AddShip(Ship oShip) {
-            //TODO: Implement
-
             GenerateBlockMap(oShip);
             Position oStart = oShip.StartPos;
             Position oEnd = oShip.EndPos;

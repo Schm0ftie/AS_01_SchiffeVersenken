@@ -19,9 +19,13 @@ namespace SchiffeVersenken.Logic
         {
             _Map = new GameMap(10, 10);
             _Random = new Random();
-            PopulateMap(_Map);
+            while (!PopulateMap(_Map))
+            {
+                _Map = new GameMap(10, 10);
+            }
             _Map.Print();
             _Map.PrintBlockMap();
+            Console.ReadLine();
             
         }
 
@@ -31,19 +35,26 @@ namespace SchiffeVersenken.Logic
         }
 
         
-        private void PopulateMap(GameMap oMap) {
-            
+        private bool PopulateMap(GameMap oMap) {
+            int counter = 0;
             List<Ship> oShipList = GenerateShips();
             foreach(Ship oShip in oShipList)
             {
                 oShip.StartPos = GetRandomLocation();
+                oShip.Dir = (Direction)_Random.Next(4);
                 while (!_Map.IsShipPlaceable(oShip))
                 {
                     oShip.StartPos = GetRandomLocation();
                     oShip.Dir = (Direction)_Random.Next(4);
+                    if (counter >= 5000)
+                        return false;
+                    else
+                        counter++;
+                    //_Map.PrintBlockMap();
                 }
                 _Map.AddShip(oShip);
             }
+            return true;
             
         }
 
