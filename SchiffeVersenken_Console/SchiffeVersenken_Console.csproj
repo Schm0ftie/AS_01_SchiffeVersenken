@@ -50,6 +50,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SchiffeVersenken_Data\SchiffeVersenken_Data.csproj">
+      <Project>{5f69b85d-defb-4149-a953-3c7f476055b5}</Project>
+      <Name>SchiffeVersenken_Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SchiffeVersenken_Logic\SchiffeVersenken_Logic.csproj">
       <Project>{427d6a66-d068-4c71-a8f7-61db62ad6b2c}</Project>
       <Name>SchiffeVersenken_Logic</Name>

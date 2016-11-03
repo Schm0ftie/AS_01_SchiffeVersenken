@@ -21,6 +21,10 @@ namespace SchiffeVersenken.Data
             {
                 return _Map[y, x];
             }
+            set
+            {
+                _Map[y, x] = value;
+            }
         }
 
         public int Height
@@ -156,7 +160,7 @@ namespace SchiffeVersenken.Data
         }
 
         #endregion
-
+        
 
         private Position GetBlockStart(Position oPos)
         {

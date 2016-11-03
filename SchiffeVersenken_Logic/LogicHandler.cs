@@ -23,9 +23,9 @@ namespace SchiffeVersenken.Logic
             {
                 _Map = new GameMap(10, 10);
             }
-            _Map.Print();
-            _Map.PrintBlockMap();
-            Console.ReadLine();
+            //_Map.Print();
+            //_Map.PrintBlockMap();
+            //Console.ReadLine();
             
         }
 
